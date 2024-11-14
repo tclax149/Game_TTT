@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A sample webpage for testing clean HTML">
+        <meta name="author" content="Tywan Claxton">
+        <title>Tic Tac Toe</title>
+        <link rel="stylesheet" href="TicTac.css"/>
+        <script src="TicTac.js" defer ></script>
+    </head>
+    <body>
+        <header>
+            <h1>Welcome to Tic Tac Toe</h1>
+        </header>
+        <main>
+            <div id="board" data-testid="tic-tac-toe-board">
+                <h1>Tic Tac Toe</h1>
+                <h2 id="game-heading" aria-live="polite">Player 1'S Turn</h2>
+                <table role="grid">
+                    <tbody>
+                        <tr>
+                            <td><button role="widget" class="game-square"></button></td>
+                            <td><button role="widget" class="game-square"></button></td>
+                            <td><button role="widget" class="game-square"></button></td>
+                        </tr>
+                        <tr>
+                            <td><button role="widget" class="game-square"></button></td>
+                            <td><button role="widget" class="game-square"></button></td>
+                            <td><button role="widget" class="game-square"></button></td>
+                        </tr>
+                        <tr>
+                            <td><button role="widget" class="game-square"></button></td>
+                            <td><button role="widget" class="game-square"></button></td>
+                            <td><button role="widget" class="game-square"></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button id="restart-button">Restart Game</button>
+            </div>
+        </main>
+        <footer>
+            <p>Created by Tywan Claxton</p>
+        </footer>
+        <nav aria-label="Main navigation"></nav>
+        <section aria-labelledby="about-heading">
+            <h2 id="about-heading">About this game</h2>
+            <p>Learn how to play Tic Tac Toe!</p>
+        </section>
+    </body>
+</html>
