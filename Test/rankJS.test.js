@@ -1,4 +1,4 @@
-import { testHTMLFile } from './sharedHTML.test.js';
+import { testHTMLFile } from '../rankings.js';
 
 
 describe('RankJS Tests', () => {
