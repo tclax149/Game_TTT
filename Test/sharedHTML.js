@@ -1,5 +1,4 @@
-import { testHTMLFile } from 'Test/sharedHTML.js'; // Import the shared logic for testing
-// sharedHTML.test.js (Shared HTML Testing Logic)
+import fs from 'fs'; // If not already imported
 
 export const testHTMLFile = (filePath, title) => {
   test(`${title} renders correctly`, () => {
@@ -8,4 +7,3 @@ export const testHTMLFile = (filePath, title) => {
     expect(document.title).toBe(title);
   });
 };
-
