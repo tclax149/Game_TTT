@@ -1,5 +1,19 @@
 // TicTac.js
+// Assuming you have HTML elements with the class 'game-square'
+let boardState;
+let currentPlayer;
 
+document.querySelectorAll('.game-square').forEach((square, index) => {
+    square.addEventListener('click', () => {
+      const row = Math.floor(index / 3);
+      const col = index % 3;
+      const newBoard = makeMove(boardState, row, col, currentPlayer);  // Update board
+      boardState = newBoard;  // Save updated state
+      renderBoard(boardState);  // Render the board
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';  // Switch player
+    });
+  });
+  
 // Function to check if there's a winner
 export function checkWinner(board) {
     if (!board || !Array.isArray(board)) return null;  // Add a guard for invalid or empty board
