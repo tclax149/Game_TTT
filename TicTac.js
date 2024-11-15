@@ -23,7 +23,6 @@ Breaking Down Solution
     
 */
 
-import { jest } from '@jest/globals';
 
     
   // Function to initialize the Tic-Tac-Toe board
