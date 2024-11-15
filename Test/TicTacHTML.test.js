@@ -1,5 +1,5 @@
-import { testHTMLFile } from '../sharedHTML'; // Correct import path
+import { testHTMLFile } from './sharedHTML'; //  import path
 
 describe('TicTacHTML Tests', () => {
-  testHTMLFile('../TicTac.html', 'Tic Tac Toe'); // Correct path to TicTac.html
+  testHTMLFile('./TicTac.html', 'Tic Tac Toe'); // file path
 });

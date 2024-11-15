@@ -1,4 +1,4 @@
-import fs from 'fs'; // If not already imported
+import fs from 'fs'; 
 
 export const testHTMLFile = (filePath, title) => {
   test(`${title} renders correctly`, () => {
@@ -6,4 +6,7 @@ export const testHTMLFile = (filePath, title) => {
     document.body.innerHTML = html;
     expect(document.title).toBe(title);
   });
+
+
+  
 };
