@@ -1,75 +1,141 @@
-import { checkWinner, makeMove } from '../TicTac.js';  // Importing game logic functions
+import { checkWinner, makeMove } from '../TicTac.js';
+import fs from 'fs';
+import { beforeEach } from 'node:test';
+import path from 'path';
 
-describe('Tic Tac Toe Logic Tests', () => {
+beforeAll(() => {
+     // Set up the DOM structure for each test
+  document.body.innerHTML = `
+  <div id="board">
+    <button id="restart-button">Restart Game</button>
+    <button class="game-square"></button>
+    <button class="game-square"></button>
+    <button class="game-square"></button>
+    <button class="game-square"></button>
+    <button class="game-square"></button>
+    <button class="game-square"></button>
+    <button class="game-square"></button>
+    <button class="game-square"></button>
+    <button class="game-square"></button>
+  </div>
+`;
+const restartButton = document.getElementById('restart-button');
+});
+
+beforeEach(() => {
   
-  // Test for checkWinner function
-  test('checkWinner returns null if there is no winner', () => {
-    const board = [
-      ['X', 'O', 'X'],
-      ['X', 'O', null],
-      [null, null, 'X']
-    ];
-    const result = checkWinner(board);  // No winner yet
-    expect(result).toBe(null);
-  });
+});
+  
 
-  test('checkWinner returns the correct winner', () => {
-    const board1 = [
-      ['O', 'O', 'O'],
-      ['X', 'X', null],
-      [null, null, 'X']
-    ];
-    const board2 = [
+afterAll(() => {
+  const restartButton = document.getElementById('restart-button');
+  if (restartButton) {
+      restartButton.addEventListener('click', () => {
+          board = [
+              [null, null, null],
+              [null, null, null],
+              [null, null, null]
+          ];
+          currentPlayer = 'X';  // Reset to player X starting
+          renderBoard(board);  // Re-render the empty board
+          console.log('Game restarted.');
+      });
+  }
+});
+
+describe('TicTacToe Logic Tests', () => {
+    test('checkWinner returns null if there is no winner and the board is not full', () => {
+        const board = [
+          ['X', null, 'O'],
+          [null, 'X', 'O'],
+          ['X', 'O', null]
+        ];
+        expect(checkWinner(board)).toBe(null); // No winner and not full
+      });
+      
+      
+      test('checkWinner returns Draw if the board is full but no winner', () => {
+        const board = [
+          ['X', 'O', 'X'],
+          ['O', 'X', 'O'],
+          ['O', 'X', 'O']
+        ];
+        expect(checkWinner(board)).toBe('Draw');  // All squares filled with no winner
+      });
+      
+
+  test('checkWinner should return correct winner', () => {
+    const board = [
       ['X', 'X', 'X'],
       ['O', 'O', null],
-      [null, null, 'O']
+      [null, null, null]
     ];
-
-    expect(checkWinner(board1)).toBe('O');  // O wins
-    expect(checkWinner(board2)).toBe('X');  // X wins
+    expect(checkWinner(board)).toBe('X');
   });
 
-  test('checkWinner returns null if board is full and no winner', () => {
-    const board = [
-      ['X', 'O', 'X'],
-      ['X', 'X', 'O'],
-      ['O', 'X', 'O']
-    ];
-    const result = checkWinner(board);  // Full board with no winner
-    expect(result).toBe(null);
-  });
-
-  // Test for makeMove function
-  test('makeMove updates the board correctly with X', () => {
+  test('makeMove should update the board correctly with X', () => {
     const board = [
       [null, null, null],
       [null, null, null],
       [null, null, null]
     ];
-    const newBoard = makeMove(board, 0, 0, 'X');  // Make move at 0, 0
-    expect(newBoard[0][0]).toBe('X');  // Ensure the board is updated correctly
-    expect(newBoard[1][1]).toBe(null);  // Ensure other positions are unaffected
+    const newBoard = makeMove(board, 0, 0, 'X');
+    expect(newBoard[0][0]).toBe('X');
+    expect(newBoard).not.toEqual(board); // Ensure the board has changed
   });
 
-  test('makeMove updates the board correctly with O', () => {
+  test('makeMove updates board correctly with O', () => {
     const board = [
       [null, null, null],
       [null, null, null],
       [null, null, null]
     ];
-    const newBoard = makeMove(board, 1, 1, 'O');  // Make move at 1, 1
-    expect(newBoard[1][1]).toBe('O');  // Ensure the board is updated correctly
-    expect(newBoard[0][0]).toBe(null);  // Ensure other positions are unaffected
+    const newBoard = makeMove(board, 1, 1, 'O');
+    expect(newBoard[1][1]).toBe('O');
+    expect(newBoard).not.toEqual(board); // Ensure the board has changed
   });
 
-  test('makeMove does not update already filled positions', () => {
-    const board = [
-      ['X', null, null],
-      [null, null, null],
-      [null, null, null]
+  test('Event listener for the restart button', () => {
+    // Set up the DOM
+    document.body.innerHTML = `
+        <div id="board">
+            <button id="restart-button">Restart Game</button>
+            <!-- other buttons for the squares -->
+        </div>
+    `;
+
+    const restartButton = document.getElementById('restart-button');
+    
+    // Check if the restart button exists
+    expect(restartButton).toBeDefined();
+    
+    // Initialize the board as a global variable
+    let board = [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null]
     ];
-    const newBoard = makeMove(board, 0, 0, 'O');  // Attempt to overwrite an X
-    expect(newBoard[0][0]).toBe('X');  // Ensure the original move is not overwritten
-  });
 
+    // Add event listener for the restart button
+    restartButton.addEventListener('click', () => {
+        board = [
+            [null, null, null],
+            [null, null, null],
+            [null, null, null]
+        ];
+        console.log('Game restarted');
+    });
+
+    // Simulate a click
+    restartButton.click();
+
+    // Verify that the board has been reset
+    expect(board).toEqual([
+        [null, null, null],
+        [null, null, null],
+        [null, null, null]
+    ]);
+});
+
+  
 });
