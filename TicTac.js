@@ -1,80 +1,120 @@
-/*
-
-what data do i need to keep track of?
-- player 1 and  player 2
-- whose turn it is 
-- gamesquare is disabled 
-- if there is a winner 
-    - horizontal 
-    - diagnol
-    - vertical  
-
-what data do i need to manipulate?
-- dynamic heading for players turn 
-- change & disable gamesquares based on players selection, 
-- gamesquares based on winner or tie
-
-
-Breaking Down Solution
-    1.  when gamesquare is clicked show x or an o depending on player, update h2 to say whose turn it is
-    2. determine when the game ends, if clicking on square causes player to win game 
-    3. end game phase, show restart button, if restart button is clicked on reset the board
-
-    
-*/
-
-
-    
-  // Function to initialize the Tic-Tac-Toe board
-// Initialize the board as a 3x3 grid
-const board = [
+let board = [
     [null, null, null],
     [null, null, null],
     [null, null, null]
-];
-
-// Define winning combinations (rows, columns, and diagonals)
-const lines = [
-    [[0, 0], [0, 1], [0, 2]],  // First row
-    [[1, 0], [1, 1], [1, 2]],  // Second row
-    [[2, 0], [2, 1], [2, 2]],  // Third row
-    [[0, 0], [1, 0], [2, 0]],  // First column
-    [[0, 1], [1, 1], [2, 1]],  // Second column
-    [[0, 2], [1, 2], [2, 2]],  // Third column
-    [[0, 0], [1, 1], [2, 2]],  // First diagonal
-    [[0, 2], [1, 1], [2, 0]]   // Second diagonal
-];
-
-// Function to check if there is a winner
-function checkWinner(board) {
-    // Check rows, columns, and diagonals
-    for (let i = 0; i < 3; i++) {
-      if (board[i][0] && board[i][0] === board[i][1] && board[i][1] === board[i][2]) return board[i][0];
-      if (board[0][i] && board[0][i] === board[1][i] && board[1][i] === board[2][i]) return board[0][i];
-    }
-    if (board[0][0] && board[0][0] === board[1][1] && board[1][1] === board[2][2]) return board[0][0];
-    if (board[0][2] && board[0][2] === board[1][1] && board[1][1] === board[2][0]) return board[0][2];
+  ];
+  let currentPlayer = 'X';
   
-    return null; // No winner
+  // Initialize the board UI and game state
+  document.querySelectorAll('.game-square').forEach((square, index) => {
+      square.addEventListener('click', () => {
+          const row = Math.floor(index / 3);
+          const col = index % 3;
+  
+          // Make the move on the board
+          board = makeMove(board, row, col, currentPlayer);
+  
+          // Re-render the board UI
+          renderBoard(board);
+  
+          // Check for a winner after the move
+          const winner = checkWinner(board);
+  
+          if (winner) {
+              renderBoard(board);  // Ensure board is rendered with the winner
+              setTimeout(() => {  // Delay alert to allow UI update
+                  alert(`${winner} wins!`);
+              }, 100); // Small delay
+          } else {
+              // Switch the player for the next move
+              currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+          }
+      });
+  });
+  
+  // Render the game board to the UI
+  function renderBoard(board) {
+      const squares = document.querySelectorAll('.game-square');
+      squares.forEach((square, index) => {
+          const row = Math.floor(index / 3);
+          const col = index % 3;
+          square.textContent = board[row][col] || '';  // Display X, O, or blank
+      });
+      console.log('Rendered board:', board);
   }
+  
+  // Check if there’s a winner on the board
 
-// Function to make a move
-function makeMove(board, row, col, player) {
-    if (board[row][col] === null) {
-      const newBoard = [...board.map(row => [...row])];  // Create a copy of the board
-      newBoard[row][col] = player;
+  export function checkWinner(board) {
+    // Check rows, columns, and diagonals for a winner
+    const lines = [
+      // Rows
+      [board[0][0], board[0][1], board[0][2]],
+      [board[1][0], board[1][1], board[1][2]],
+      [board[2][0], board[2][1], board[2][2]],
+      // Columns
+      [board[0][0], board[1][0], board[2][0]],
+      [board[0][1], board[1][1], board[2][1]],
+      [board[0][2], board[1][2], board[2][2]],
+      // Diagonals
+      [board[0][0], board[1][1], board[2][2]],
+      [board[0][2], board[1][1], board[2][0]]
+    ];
+  
+    // Check if any line has a winner
+    for (let line of lines) {
+      if (line[0] && line[0] === line[1] && line[0] === line[2]) {
+        return line[0]; // Return the winner (either 'X' or 'O')
+      }
+    }
+  
+    // Check if the board is full
+    const isFull = board.every(row => row.every(cell => cell !== null));
+  
+    // If board is full and no winner, return 'Draw'
+    if (isFull) {
+      return 'Draw';
+    }
+  
+    // No winner and board is not full
+    return null;
+  }
+  
+
+  
+  // Function to make a move on the board
+  export function makeMove(board, row, col, player) {
+      if (board[row][col] !== null) {
+          console.log('Square is already occupied.');
+          return board;  // Return board unchanged if square is occupied
+      }
+      const newBoard = board.map((rowArr, rowIndex) => {
+          if (rowIndex === row) {
+              const newRow = [...rowArr];
+              newRow[col] = player;
+              return newRow;
+          }
+          return rowArr;
+      });
+      console.log('Board after move:', newBoard);
       return newBoard;
-    }
-    return board;  // Return the unchanged board if the spot is already filled
   }
   
-
-// Example of how the game might proceed
-makeMove(board, 0, 0, 'X');
-makeMove(board, 1, 1, 'O');
-makeMove(board, 2, 2, 'X');
-
-// Checking for a winner after moves
-console.log(checkWinner(board)); // Will log `true` if a winner is found
-
-module.exports = { checkWinner, makeMove, board };
+  // Ensure the restart button event listener is added after DOM content is loaded
+  window.onload = () => {
+    const restartButton = document.getElementById('restart-button');
+    if (restartButton) {
+      restartButton.addEventListener('click', () => {
+          // Reset the board and UI for a new game
+          board = [
+              [null, null, null],
+              [null, null, null],
+              [null, null, null]
+          ];
+          currentPlayer = 'X';  // Reset to player X starting
+          renderBoard(board);  // Re-render the empty board
+          console.log('Game restarted.');
+      });
+    }
+  };
+  
