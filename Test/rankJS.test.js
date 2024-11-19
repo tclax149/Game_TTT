@@ -1,4 +1,4 @@
-import { setUpItem, droppedInZone, onDragItem, droppedOverDropZone, dragOverDropZone, itemDoubleClicked } from '../rankings.js';
+import { setUpItem, droppedInZone, onDragItem, droppedOverDropZone, dragOverDropZone, itemDoubleClicked } from '../Rankings/rankings.js';
 
 // Mocking DragEvent
 global.DragEvent = function(type, params = {}) {
