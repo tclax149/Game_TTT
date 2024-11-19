@@ -2,6 +2,6 @@
 import { testHTMLFile } from './sharedHTML'; // import path
 
 describe('RankHTML Tests', () => {
-  testHTMLFile('./ranksings.html', 'Ranking System'); // path to html file
+  testHTMLFile('./Rankings/ranksings.html', 'Ranking System'); // path to html file
   
 });
