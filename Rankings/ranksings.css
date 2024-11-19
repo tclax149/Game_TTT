@@ -15,7 +15,7 @@ h1 {
 .tier-section {
     display: flex;
     border: 5px solid black;
-    min-height: 50px;
+    min-height: 90px;
 }
 
 .tier-section:not(:first-of-type, :last-of-type){
@@ -33,8 +33,8 @@ h1 {
 
 .item {
     display: inline-block;
-    width: 40px;
-    height: 40px;
+    width: 70px;
+    height: 70px;
     border: 2px solid black;
     border-radius: 8px;
     margin: 4px 8px;
@@ -45,37 +45,54 @@ h1 {
 }
 
 #blue {
-    background-color: blue;
+    background-image: url('images/bears.png');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 #red {
-    background-color: red;
+    background-image: url('images/bengals.png');
+    background-size: cover;
 }
 
 #green {
     background-color: green;
+    background-image: url('images/bills.png');
+    background-size: cover;
 }
 
 #gold{
     background-color: gold;
+    background-image: url('images/broncos.png');
+    background-size: cover;
 }
 
 #lightblue {
     background-color: lightblue;
+    background-image: url('images/browns.png');
+    background-size: cover;
 }
 
 #orange {
     background-color: orange;
+    background-image: url('images/chargers.png');
+    background-size: cover;
 }
 
 #black {
     background-color: black;
+    background-image: url('images/colts.png');
+    background-size: cover;
 }
 
 #pink {
     background-color: pink;
+    background-image: url('images/giants.png');
+    background-size: cover;
 }
 
 #purple {
     background-color: purple;
+    background-image: url('images/texans.png');
+    background-size: cover;
 }
