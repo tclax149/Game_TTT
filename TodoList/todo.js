@@ -1,24 +1,32 @@
-// Function to handle input event and enable/disable the Add button
-export function inputFieldEngaged() {
-    const inputField = document.getElementById('todo-input');
-    const addButton = document.getElementById('add-button');
-    addButton.disabled = inputField.value.trim().length === 0;
+
+
+const inputField = document.getElementById('todo-input');
+const addButton = document.getElementById('add-button');
+const todoList = document.getElementById('todo-list');
+
+// adding an event listener to inout field
+inputField.addEventListener('input', inputFieldEngaged);
+
+addButton.addEventListener('click', addInputToList);
+
+
+function inputFieldEngaged() {
+    // enable addbutton when input field is engaged
+    addButton.disabled = inputField.value.length === 0;
 }
 
-// Function to handle Add button click event
-export function addInputToList() {
-    const inputField = document.getElementById('todo-input');
-    const todoList = document.getElementById('todo-list');
-    if (inputField.value.trim().length > 0) {
-        const listItem = createListItem(inputField.value.trim());
-        todoList.appendChild(listItem);
-        inputField.value = '';
-        inputFieldEngaged();
-    }
+function addInputToList() {
+
+    // creating list item from input value
+    const listItem = createListItem(inputField.value);
+
+    todoList.append(listItem);
+    inputField.value = '';
+    addButton.disabled = true;
 }
 
-// Function to create a list item element
-export function createListItem(name) {
+
+function createListItem(name) {
     const listItem = document.createElement('li');
     const heading = document.createElement('h2');
     heading.textContent = name;
@@ -26,7 +34,9 @@ export function createListItem(name) {
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'X';
     deleteButton.classList.add('delete-button');
-    deleteButton.addEventListener('click', deleteButtonPressed);
+    deleteButton.addEventListener('click', function () {
+        listItem.remove(); // Explicitly remove the parent list item
+    });
 
     listItem.appendChild(heading);
     listItem.appendChild(deleteButton);
@@ -34,13 +44,9 @@ export function createListItem(name) {
     return listItem;
 }
 
-// Function to handle the delete button click event
-function deleteButtonPressed() {
-    this.parentNode.remove();
+
+function deleteButtonPressed(event) {
+    const listItem = event.target.parentNode;
+    listItem.remove();
 }
 
-// Add event listeners only if the elements exist
-if (document.getElementById('todo-input') && document.getElementById('add-button')) {
-    document.getElementById('todo-input').addEventListener('input', inputFieldEngaged);
-    document.getElementById('add-button').addEventListener('click', addInputToList);
-}
