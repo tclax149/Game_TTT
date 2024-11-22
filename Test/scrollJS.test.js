@@ -18,7 +18,7 @@ describe('Infinite Scroll Testimonials', () => {
     beforeAll(() => {
         // load the html file into the test enviornment
         // ESTABLISH FILE PATH 
-        const filePath = path.resolve(__dirname, '../InfiniteScrollAPI/scroll.html');
+        const filePath = path.resolve(__dirname, '..', 'InfinteScrollAPI', 'scroll.html');
         // DECLARE & SET HTML CONTENT
         htmlContent = fs.readFileSync(filePath, 'utf8');
         document.body.innerHTML = htmlContent
@@ -34,7 +34,7 @@ describe('Infinite Scroll Testimonials', () => {
         expect(document.title).toBe('API FETCH');
         const container = document.getElementById('testimonialContainer');
         expect(container).toBeInTheDocument();
-        expect(container).toHaveStyle('overflow-y: scroll');
+        expect(container).toHaveStyle({ overflowY: 'scroll' });
     });
 
 
@@ -52,7 +52,7 @@ describe('Infinite Scroll Testimonials', () => {
         });
 
         //dynamically load js and simulate the function call
-        const scriptPath = path.resolve(__dirname, '../InfiniteScrollAPI/scroll.js');
+        const scriptPath = path.resolve(__dirname, '..', 'InfinteScrollAPI', 'scroll.js');
         const scriptContent = fs.readFileSync(scriptPath, 'utf8');
         eval(scriptContent); // Simulate including the JS file
 
@@ -89,7 +89,7 @@ describe('Infinite Scroll Testimonials', () => {
             }),
         });
         // Load the script and trigger the first fetch
-        const scriptPath = path.resolve(__dirname, '../InfiniteScrollAPI/scroll.js');
+        const scriptPath = path.resolve(__dirname, '..', 'InfinteScrollAPI', 'scroll.js');
         const scriptContent = fs.readFileSync(scriptPath, 'utf8');
         eval(scriptContent); // Simulate including the JS file
 
@@ -114,7 +114,7 @@ describe('Infinite Scroll Testimonials', () => {
         });
 
         // Dynamically load JS
-        const scriptPath = path.resolve(__dirname, '../InfiniteScrollAPI/scroll.js');
+        const scriptPath = path.resolve(__dirname, '..', 'InfinteScrollAPI', 'scroll.js');
         const scriptContent = fs.readFileSync(scriptPath, 'utf8');
         eval(scriptContent);
 
