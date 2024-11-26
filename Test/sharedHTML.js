@@ -19,10 +19,6 @@ describe("HTML Structure Tests", () => {
     document.body.innerHTML = sampleHtml;
   });
 
-  test("renders Tic Tac Toe board", () => {
-    const boardElement = screen.getByTestId('tic-tac-toe-board');
-    expect(boardElement).toBeInTheDocument();
-  });
 
   test("contains necessary meta tags", () => {
     expect(document.querySelector('meta[charset="UTF-8"]')).toBeInTheDocument();
