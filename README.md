@@ -8,16 +8,15 @@ Table of Contents:
 Project requirements: 
 - Clean Html (semantic hmtl, descriptive content accessibility, meta tags) 
 - Clean Css (consistent, Seperate from html,)
-- Clean Js (functional programming, Easy to understand,update and maintiain)
+- Clean Js (Easy to understand,update and maintiain)
 
 App Overview: 
 
-This is what i'm working on:
+currently working on:
 - show case smaller projects / widgets that are creative and meet technical requiremnts
 
-These are the things i've done:
-- I've build each individual project on my local pc, focus on source control and display of industry standard design practices 
-
+Currently done:
+- I've build each individual project on my local pc, focus on source control and testing code
 
 This is where i'm going:
 
